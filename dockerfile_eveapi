@@ -1,0 +1,14 @@
+FROM python:3
+WORKDIR src
+COPY requirements.txt .
+
+RUN python -m venv env
+RUN /bin/bash -c "source ./env/bin/activate"
+
+RUN pip install -r requirements.txt
+
+COPY . .
+
+WORKDIR OneMind
+
+CMD [ "python", "eveAPI.py" ]

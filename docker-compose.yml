@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  mongodb:
+    image: 'docker.io/bitnami/mongodb:4.4-debian-10'
+    networks:
+      - app-tier
+    volumes:
+      - 'mongodb_data:/bitnami/mongodb'
+    restart: unless-stopped
+  dataretrieval:
+    image: 'docker.io/silviofdez/dataretrieval'
+    networks:
+      - app-tier
+    restart: unless-stopped
+  eveapi:
+    image: 'docker.io/silviofdez/eveapi'
+    networks:
+      - app-tier
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+  testcontainer:
+    image: 'docker.io/silviofdez/testcontainer'
+    networks:
+      - app-tier
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  app-tier:
+    driver: bridge
