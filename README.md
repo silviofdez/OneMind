@@ -2,8 +2,10 @@
 
 ## TL;DR
 
-  docker-compose up -d
-  curl -i
+```bash
+docker-compose up -d
+curl -i
+```
 
 ## What is this for
 
@@ -11,7 +13,9 @@ This simple example retrieves periodically (15m by default) forecasting data fro
 get data for all cities in Seville.
 
 The retrieved data is stored in a database (mongodb in this example) and server via a simple rest API, allowing filtering by city.
-  GET http://127.0.0.1:5000/forecast?where={"locality.name": "Sevilla"}
+```
+GET http://127.0.0.1:5000/forecast?where={"locality.name": "Sevilla"}
+```
 
 ## Prerequisites
 
@@ -19,9 +23,12 @@ Docker and docker-compose installed or a local mongodb database.
 
 ## Building the images
 
-  docker build -f .\dockerfile_dataretrieval -t dataretrieval .
-  docker build -f .\dockerfile_eveapi -t eveapi .
-  docker build -f .\dockerfile_testcontainer -t testcontainer .
+
+```bash
+docker build -f .\dockerfile_dataretrieval -t dataretrieval .
+docker build -f .\dockerfile_eveapi -t eveapi .
+docker build -f .\dockerfile_testcontainer -t testcontainer .
+```
 
 If you want to use these images instead of the registry ones, you need to properly modify the _docker-compose.yml_ file.
 
@@ -33,9 +40,11 @@ There are two test files, they rely on pytest (installed by default in the conta
 - eveAPI_test.py
   
 To test the data retrieving functionality you need to enter the test container and run the tests.
-  docker run -it test_container
-  cd tests
-  pytest dataRetrieval_tests.py
+```bash
+docker run -it test_container
+cd tests
+pytest dataRetrieval_tests.py
+```
 
 To test the API, you just need to run the code test against your localhost
   pytest eveAPI_tests.py
